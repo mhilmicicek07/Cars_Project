@@ -1,19 +1,19 @@
-
+//! Local Storage İşlemleri
 function Storage() {
 
     Storage.prototype.addCarToStorage = function (newCar) {
 
+        // console.log(newCar)
+
         let cars = this.getCarsFromStorage();
 
-        cars.push(newCar); 
+        cars.push(newCar);
 
-        localStorage.setItem("cars",JSON.stringify(cars));
-
-
+        localStorage.setItem("cars", JSON.stringify(cars));
     }
 
     Storage.prototype.getCarsFromStorage = function () {
-        
+
         let cars;
 
         if (localStorage.getItem("cars") === null) {
@@ -23,17 +23,17 @@ function Storage() {
             cars = JSON.parse(localStorage.getItem("cars"));
         }
         return cars;
-
     }
 }
 
-Storage.prototype.deleteCarFromStorage = function(carTitle){
+Storage.prototype.deleteCarFromStorage = function (carTitle) {
     let cars = this.getCarsFromStorage();
-    cars.forEach(function(car,index){
-        cars.splice(index,1);
-        localStorage.setItem("cars",JSON.stringify(cars));
+    cars.forEach(function (car, index) {
+        cars.splice(index, 1);
+        localStorage.setItem("cars", JSON.stringify(cars));
     });
 }
-Storage.prototype.clearAllCarsFromStorage = function(){
+
+Storage.prototype.clearAllCarsFromStorage = function () {
     localStorage.removeItem("cars");
 }
