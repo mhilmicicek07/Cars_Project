@@ -7,75 +7,82 @@ const urlElement = document.querySelector("#url");
 const cardbody = document.querySelectorAll(".card-body")[1];
 const clear = document.getElementById("clear-cars");
 
-
-//? UI Objesini Başlatma
-
+// Nesneler
 const ui = new UI();
-
 const storage = new Storage();
 
-//? Tüm Eventleri Yükleme
+// Eventler
+function eventListeners() {
+  form.addEventListener("submit", addCar);
 
-function eventListeners(){
-    form.addEventListener("submit",addCar);
+  document.addEventListener("DOMContentLoaded", function () {
+    const cars = storage.getCarsFromStorage();
+    ui.loadAllCars(cars);
+  });
 
-    document.addEventListener("DOMContentLoaded",function(){
-        let cars = storage.getCarsFromStorage();
-        ui.loadAllCars(cars);
-    });
-    
-    cardbody.addEventListener("click",deleteCar);
-    clear.addEventListener("click",clearAllCars);
+  // Silme butonu: event delegation
+  cardbody.addEventListener("click", deleteCar);
+
+  clear.addEventListener("click", clearAllCars);
 }
 eventListeners();
 
-function addCar(e){
-
-    e.preventDefault();
-
-    const title = titleElement.value;
-    const price = priceElement.value;
-    const url = urlElement.value;
-
-    if(title === "" || price === "" || url === ""){
-        // Alert 
-        ui.displayMessages("Tüm Alanları Doldurun!","danger");
-    }
-    else{
-        // Yeni Araç
-        const newCar = new Car(title,price,url);
-
-        ui.addCarToUI(newCar); // Arayüze araç ekleme
-
-        storage.addCarToStorage(newCar);
-
-        ui.displayMessages("Araç Başarıyla Eklendi!","success");
-    }
-    ui.clearInputs(titleElement,urlElement,priceElement);
-
-    e.preventDefault();
-
+// Yardımcı: kaba URL doğrulama
+function isLikelyHttpUrl(str) {
+  return /^https?:\/\//i.test(str.trim());
 }
 
-function deleteCar(e){
+function addCar(e) {
+  e.preventDefault();
 
-    // console.log(e.target)
-    
-    if(e.target.id === "delete-car"){
-        ui.deleteCarFromUI(e.target);
-        
-        // console.log(e.target.parentElement.previousElementSibling.previousElementSibling.textContent);
-        storage.deleteCarFromStorage(e.target.parentElement.previousElementSibling.previousElementSibling.textContent);
+  const title = titleElement.value.trim();
+  const price = priceElement.value.trim();
+  const url = urlElement.value.trim();
 
-        ui.displayMessages("Silme İşlemi Başarıyla Gerçekleşti!!!","success");
+  if (!title || !price || !url) {
+    ui.displayMessages("Tüm alanları doldurun!", "danger");
+    return;
+  }
 
-    }
+  if (isNaN(Number(price))) {
+    ui.displayMessages("Fiyat sayısal olmalı.", "warning");
+    return;
+  }
+
+  if (!isLikelyHttpUrl(url)) {
+    ui.displayMessages("Görsel linki http/https ile başlamalı.", "warning");
+    return;
+  }
+
+  const newCar = new Car(title, price, url);
+
+  ui.addCarToUI(newCar);
+  storage.addCarToStorage(newCar);
+  ui.displayMessages("Araç başarıyla eklendi!", "success");
+
+  // Formu temizle
+  form.reset();
 }
 
-function clearAllCars(){
+function deleteCar(e) {
+  const btn = e.target.closest(".delete-car");
+  if (!btn) return;
 
-    if(confirm("Tüm Araçlar Silinecek! Emin Misiniz?")){
-        ui.clearAllCarsFromUI();
-        storage.clearAllCarsFromStorage();
-    }
+  e.preventDefault();
+
+  const tr = btn.closest("tr");
+  if (!tr) return;
+
+  const id = tr.dataset.id;
+  ui.deleteCarFromUI(btn);
+  storage.deleteCarFromStorageById(id);
+  ui.displayMessages("Silme işlemi başarıyla gerçekleşti!", "danger");
+}
+
+function clearAllCars(e) {
+  e.preventDefault();
+  if (confirm("Tüm araçlar silinecek! Emin misiniz?")) {
+    ui.clearAllCarsFromUI();
+    storage.clearAllCarsFromStorage();
+  }
 }
