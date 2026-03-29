@@ -74,8 +74,14 @@ function deleteCar(e) {
   if (!tr) return;
 
   const id = tr.dataset.id;
+  const titleCell = tr.querySelector("td:nth-child(2)");
+  const fallbackTitle = titleCell ? titleCell.textContent.trim() : "";
   ui.deleteCarFromUI(btn);
-  storage.deleteCarFromStorageById(id);
+  if (id) {
+    storage.deleteCarFromStorageById(id);
+  } else if (fallbackTitle) {
+    storage.deleteCarFromStorage(fallbackTitle);
+  }
   ui.displayMessages("Silme işlemi başarıyla gerçekleşti!", "danger");
 }
 
