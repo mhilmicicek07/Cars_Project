@@ -13,6 +13,8 @@ Bu proje, basit bir "Araç Yönetim" (Car Management) uygulamasıdır. Kullanıc
 - 💾 LocalStorage üzerinde kalıcı veri saklama
 - 🔁 Sayfa yüklendiğinde kayıtlı araçların otomatik yüklenmesi
 - ⚙️ Boş liste durumunda LocalStorage anahtarının temizlenmesi
+- 🆔 Eski kayıtlar id'siz gelse bile otomatik kimliklendirme ve sorunsuz silme
+- 🖼️ Eksik veya hatalı görsel linklerinde otomatik placeholder gösterimi
 
 ### Kullanılan Teknolojiler
 - HTML5
@@ -69,6 +71,8 @@ This is a small Car Management web app. Users can add cars, delete single entrie
 - Persistent storage via LocalStorage
 - Automatic loading of saved cars on page load
 - Remove LocalStorage key when the list becomes empty
+- Auto-assign ids for legacy records so delete actions stay reliable
+- Graceful placeholder image when the provided URL is missing or broken
 
 ### Technologies
 - HTML5
@@ -123,6 +127,8 @@ Dies ist eine kleine Web-App zur Verwaltung von Fahrzeugen (Car Management). Ben
 - Persistente Speicherung über LocalStorage
 - Automatisches Laden gespeicherter Fahrzeuge beim Seitenstart
 - Entfernen des LocalStorage-Schlüssels, wenn die Liste leer ist
+- Fehlende IDs in alten Datensätzen werden automatisch vergeben, damit Löschen weiterhin klappt
+- Platzhalterbild, wenn die bereitgestellte Bild-URL fehlt oder defekt ist
 
 ### Technologien
 - HTML5

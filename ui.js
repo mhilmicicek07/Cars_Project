@@ -24,8 +24,9 @@ UI.prototype._createRow = function (car) {
   img.style.maxWidth = "160px";
   img.style.maxHeight = "90px";
   img.loading = "lazy";
-  img.src = car.url;
   const fallback = this._placeholderDataUrl();
+  const source = car.url && car.url.trim() ? car.url : fallback;
+  img.src = source;
   img.onerror = () => (img.src = fallback);
   tdImg.appendChild(img);
 
