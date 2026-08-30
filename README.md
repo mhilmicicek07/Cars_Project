@@ -21,6 +21,8 @@ Bu proje, basit bir "Araç Yönetim" (Car Management) uygulamasıdır. Kullanıc
 - CSS3
 - JavaScript (ES6+)
 - LocalStorage API
+- Bootstrap 5.3 (CDN)
+- Font Awesome 7 (CDN)
 
 ### Proje Dosya Yapısı
 - `index.html` — Uygulamanın ana HTML sayfası
@@ -79,6 +81,8 @@ This is a small Car Management web app. Users can add cars, delete single entrie
 - CSS3
 - JavaScript (ES6+)
 - LocalStorage API
+- Bootstrap 5.3 (CDN)
+- Font Awesome 7 (CDN)
 
 ### Project Structure
 - `index.html` — Main HTML file
@@ -135,6 +139,8 @@ Dies ist eine kleine Web-App zur Verwaltung von Fahrzeugen (Car Management). Ben
 - CSS3
 - JavaScript (ES6+)
 - LocalStorage API
+- Bootstrap 5.3 (CDN)
+- Font Awesome 7 (CDN)
 
 ### Projektstruktur
 - `index.html` — Haupt-HTML-Datei
